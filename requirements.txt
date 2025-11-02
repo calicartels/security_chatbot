@@ -1,0 +1,10 @@
+google-genai
+faiss-cpu
+streamlit
+requests
+python-dotenv
+numpy<2
+torch
+huggingface-hub>=0.34.0,<1.0
+sentence-transformers
+
