@@ -91,6 +91,44 @@ python test_fetch.py
 
 4. If NVD fails due to rate limits or connectivity, OSV.dev uses NVD as fallback with recent CVEs
 
+## Architecture Diagram
+```
+```
+┌──────────────────────┐
+│  CVE Data Sources    │
+│  - NVD API           │
+│  - OSV.dev           │
+└─────────┬────────────┘
+          │
+Ingestion & Normalization
+          │ (cve_fetch.py)
+          ▼
+Embeddings + Index Build
+(Gemini embeddings + FAISS via vector_db.py)
+          │
+          ▼
+Vector Store (FAISS index + metadata)
+          │                 ┌───────────────┐
+Retrieval (top-k)           │User Query     │
++ Cross-encoder rerank      │Infrastructure │
+(vector_db + cve_processing)└──────┬────────┘
+          │                        │
+          └──────────────┬─────────┘
+                         ▼
+              Prompt Assembly
+             (llm_query.py builds
+               context prompt)
+                         │
+                         ▼
+               LLM Generation
+                (Google Gemini)
+                         │
+                         ▼
+                Streamlit Chat UI
+                    (app.py)
+```
+
+
 
 ## References:
 - Built interactively with Cursor IDE (https://cursor.sh)
