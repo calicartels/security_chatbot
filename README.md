@@ -92,7 +92,7 @@ python test_fetch.py
 4. If NVD fails due to rate limits or connectivity, OSV.dev uses NVD as fallback with recent CVEs
 
 ## Architecture Diagram
-```
+
 ```
 ┌──────────────────────┐
 │  CVE Data Sources    │
